@@ -6,7 +6,12 @@
     <title>赛博牛马任务管理系统 (Silicon Flow版)</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="赛博牛马">
     
+    <!-- 设置蓝色“牛”字图标 -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjNGY0NmU1Ii8+PHRleHQgeD0iNTAiIHk9IjU0IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSI1NSIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiBkb21pbmFudC1iYXNlbGluZT0iY2VudHJhbCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+54mbPC90ZXh0Pjwvc3ZnPg==">
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjNGY0NmU1Ii8+PHRleHQgeD0iNTAiIHk9IjU0IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSI1NSIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiBkb21pbmFudC1iYXNlbGluZT0iY2VudHJhbCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+54mbPC90ZXh0Pjwvc3ZnPg==">
+
     <!-- 1. 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -425,12 +430,12 @@
           const grouped = {};
           completedTasks.forEach(t => { if(!t.completed_at) return; const dateKey = new Date(t.completed_at).toLocaleDateString(); if (!grouped[dateKey]) grouped[dateKey] = []; grouped[dateKey].push(t); });
           const sortedDates = Object.keys(grouped).sort((a,b) => new Date(b) - new Date(a));
-          return (<div className="space-y-6 animate-in"><h2 className="text-xl font-bold text-slate-800">已执行节点</h2>{sortedDates.map(date => (<div key={date}><div className="flex items-center gap-4 mb-2"><span className="bg-white/80 text-slate-600 px-3 py-1 rounded-full text-xs font-bold border border-slate-100 shadow-sm">{date}</span><div className="h-px bg-slate-200 flex-1"></div></div><div className="space-y-1 pl-4">{grouped[date].map(task => (<TaskItem key={task.id} task={task} project={projects.find(p=>p.id===task.project_id)} assigners={assigners} onUpdate={onUpdateTask} onDeleteRequest={onDeleteTaskRequest} onViewProject={() => onViewProject(task.project_id)} onSmartBreakdown={()=>{}}/>))}</div></div>))}{completedTasks.length === 0 && <div className="text-center text-slate-400 mt-20">还没有完成任何任务</div>}</div>);
+          return (<div className="space-y-6 animate-in"><h2 className="text-xl font-bold text-slate-800">已执行节点</h2>{sortedDates.map(date => (<div key={date}><div className="flex items-center gap-4 mb-2"><span className="bg-white/80 text-slate-600 px-3 py-1 rounded-full text-xs font-bold border border-slate-100 shadow-sm">{date}</span><div className="h-px bg-slate-200 flex-1"></div></div><div className="space-y-1 pl-4">{grouped[date].map(task => (<TaskItem key={task.id} task={task} project={projects.find(p=>p.id===task.project_id)} assigners={assigners} onUpdate={onUpdateTask} onDeleteRequest={onDeleteTaskRequest} onViewProject={() => onViewProject(task.project_id)} onSmartBreakdown={()=>{}}/>))}</div></div>))}{completedTasks.length === 0 && <div className="text-center text-slate-400 mt-20">还没有完成任何任务，加油！</div>}</div>);
         };
 
         const CompletedProjectsTab = ({ projects, onViewProject, onDeleteProjectRequest, onUpdateProject }) => {
           const completedProjects = projects.filter(p => p.status === 'completed');
-          return (<div className="space-y-6 animate-in"><h2 className="text-xl font-bold text-slate-800">完工项目</h2><div className="grid grid-cols-1 md:grid-cols-3 gap-4">{completedProjects.map(p => (<ProjectCard key={p.id} project={p} onClick={()=>onViewProject(p.id)} onDeleteRequest={onDeleteProjectRequest} onUpdate={onUpdateProject} onComplete={()=>onUpdateProject(p.id,{status:'active'})} />))}</div>{completedProjects.length === 0 && <div className="text-center text-slate-400 mt-20">还没有完工的项目</div>}</div>);
+          return (<div className="space-y-6 animate-in"><h2 className="text-xl font-bold text-slate-800">完工项目</h2><div className="grid grid-cols-1 md:grid-cols-3 gap-4">{completedProjects.map(p => (<ProjectCard key={p.id} project={p} onClick={()=>onViewProject(p.id)} onDeleteRequest={onDeleteProjectRequest} onUpdate={onUpdateProject} onComplete={()=>onUpdateProject(p.id,{status:'active'})} />))}</div>{completedProjects.length === 0 && <div className="text-center text-slate-400 mt-20">还没有完工的项目。</div>}</div>);
         };
 
         const WeeklyReportTab = ({ tasks, projects, onUpdateTask }) => {
@@ -451,20 +456,25 @@
           const [projects, setProjects] = useState([]);
           const [tasks, setTasks] = useState([]);
           const [isOffline, setIsOffline] = useState(false); 
+          
           const [currentTab, setCurrentTab] = useState('main'); 
           const [editingProjectId, setEditingProjectId] = useState(null); 
           const [showQuickCreate, setShowQuickCreate] = useState(false);
           const [showSettings, setShowSettings] = useState(false);
           const [isProcessingData, setIsProcessingData] = useState(false);
+          
           const [projectTaskInput, setProjectTaskInput] = useState('');
           const [showAIModal, setShowAIModal] = useState(false);
           const [analysisResult, setAnalysisResult] = useState('');
           const [isAnalyzing, setIsAnalyzing] = useState(false);
+          
           const [showAuditModal, setShowAuditModal] = useState(false);
           const [auditResult, setAuditResult] = useState(null);
           const [auditLoading, setAuditLoading] = useState(false);
           const [breakdownLoadingId, setBreakdownLoadingId] = useState(null);
+
           const [confirmData, setConfirmData] = useState({ isOpen: false, id: null, type: null, title: '', msg: '' });
+
           const assigners = useMemo(() => [...new Set(tasks.map(t => t.assigner).filter(Boolean))], [tasks]);
 
           useEffect(() => {
@@ -472,14 +482,19 @@
               try {
                 const pPromise = supabase.from('projects').select('*').eq('app_id', PUBLIC_APP_ID).order('created_at', { ascending: false });
                 const tPromise = supabase.from('tasks').select('*').eq('app_id', PUBLIC_APP_ID).order('created_at', { ascending: false });
+                
                 const [pRes, tRes] = await Promise.race([
                     Promise.all([pPromise, tPromise]),
                     new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3000))
                 ]);
+
                 if (pRes.error) throw pRes.error;
                 if (tRes.error) throw tRes.error;
+
                 setProjects(pRes.data);
                 setTasks(tRes.data);
+                console.log("Connected to Supabase Cloud");
+
                 const channel = supabase.channel('cyber_ox_realtime')
                   .on('postgres_changes', { event: '*', schema: 'public', table: 'projects', filter: `app_id=eq.${PUBLIC_APP_ID}` }, (payload) => {
                       if (payload.eventType === 'INSERT') setProjects(prev => [payload.new, ...prev]);
@@ -492,7 +507,9 @@
                       if (payload.eventType === 'DELETE') setTasks(prev => prev.filter(t => t.id !== payload.old.id));
                   })
                   .subscribe();
+                
                 return () => supabase.removeChannel(channel);
+
               } catch (err) {
                 console.warn("Supabase connect failed, switching to Local Mode:", err);
                 setIsOffline(true);
@@ -512,26 +529,45 @@
 
           const handleCreateTask = async(d) => { 
             const newTask = { ...d, id: crypto.randomUUID(), app_id: PUBLIC_APP_ID, status:'active', created_at: new Date().toISOString() };
-            if (isOffline) setTasks(prev => [newTask, ...prev]);
-            else await supabase.from('tasks').insert(newTask); 
+            if (isOffline) {
+                setTasks(prev => [newTask, ...prev]);
+            } else {
+                await supabase.from('tasks').insert(newTask); 
+            }
           };
 
           const handleUpdateTask = async(id, d) => {
-            if (isOffline) setTasks(prev => prev.map(t => t.id === id ? { ...t, ...d } : t));
-            else await supabase.from('tasks').update(d).eq('id', id);
+            if (isOffline) {
+                setTasks(prev => prev.map(t => t.id === id ? { ...t, ...d } : t));
+            } else {
+                await supabase.from('tasks').update(d).eq('id', id);
+            }
           };
 
           const handleCreateProject = async () => { 
             const newProject = { 
-                id: crypto.randomUUID(), name: '新项目 '+new Date().toLocaleDateString(), status:'active', wait_status:'normal', app_id: PUBLIC_APP_ID, created_at: new Date().toISOString()
+                id: crypto.randomUUID(),
+                name: '新项目 '+new Date().toLocaleDateString(), 
+                status:'active', 
+                wait_status:'normal', 
+                app_id: PUBLIC_APP_ID,
+                created_at: new Date().toISOString()
             };
-            if (isOffline) { setProjects(prev => [newProject, ...prev]); setEditingProjectId(newProject.id); }
-            else { const { data } = await supabase.from('projects').insert(newProject).select().single(); if (data) setEditingProjectId(data.id); }
+            if (isOffline) {
+                setProjects(prev => [newProject, ...prev]);
+                setEditingProjectId(newProject.id); 
+            } else {
+                const { data } = await supabase.from('projects').insert(newProject).select().single();
+                if (data) setEditingProjectId(data.id); 
+            }
           };
 
           const handleUpdateProject = async(id, d) => {
-            if (isOffline) setProjects(prev => prev.map(p => p.id === id ? { ...p, ...d } : p));
-            else await supabase.from('projects').update(d).eq('id', id);
+            if (isOffline) {
+                setProjects(prev => prev.map(p => p.id === id ? { ...p, ...d } : p));
+            } else {
+                await supabase.from('projects').update(d).eq('id', id);
+            }
           };
 
           const requestDeleteTask = (id) => {
@@ -546,30 +582,47 @@
             const { type, id } = confirmData;
             if (!type || !id) return;
             setConfirmData({ isOpen: false, id: null, type: null, title: '', msg: '' });
+
             try {
-                if (type === 'task') { setTasks(prev => prev.filter(t => t.id !== id)); if (!isOffline) await supabase.from('tasks').delete().eq('id', id); }
-                else if (type === 'project') {
+                if (type === 'task') {
+                    setTasks(prev => prev.filter(t => t.id !== id));
+                    if (!isOffline) await supabase.from('tasks').delete().eq('id', id);
+                } else if (type === 'project') {
                     setProjects(prev => prev.filter(p => p.id !== id));
                     setTasks(prev => prev.filter(t => t.project_id !== id)); 
                     if(editingProjectId===id) setEditingProjectId(null); 
-                    if (!isOffline) { await supabase.from('tasks').delete().eq('project_id', id); await supabase.from('projects').delete().eq('id', id); }
+                    if (!isOffline) {
+                        await supabase.from('tasks').delete().eq('project_id', id);
+                        await supabase.from('projects').delete().eq('id', id);
+                    }
                 }
-            } catch (err) { alert("删除出错，请刷新页面重试"); }
+            } catch (err) {
+                console.error("Delete error:", err);
+                alert("删除出错，请刷新页面重试");
+            }
           };
 
           const handleSyncToCloud = async () => {
-             if (!confirm("确定要尝试连接云端吗？")) return;
+             if (!confirm("确定要尝试连接云端吗？这可能需要网络通畅。如果连接成功，本地数据将覆盖或合并到云端。")) return;
              setIsProcessingData(true);
              try {
-                 const { error: pErr } = await supabase.from('projects').upsert(projects); if (pErr) throw pErr;
-                 const { error: tErr } = await supabase.from('tasks').upsert(tasks); if (tErr) throw tErr;
-                 alert("同步成功！"); localStorage.removeItem(LOCAL_STORAGE_KEY); window.location.reload();
-             } catch (e) { alert("同步失败: " + e.message); } finally { setIsProcessingData(false); }
+                 const { error: pErr } = await supabase.from('projects').upsert(projects);
+                 if (pErr) throw pErr;
+                 const { error: tErr } = await supabase.from('tasks').upsert(tasks);
+                 if (tErr) throw tErr;
+                 alert("同步成功！即将切换回在线模式。");
+                 localStorage.removeItem(LOCAL_STORAGE_KEY); 
+                 window.location.reload();
+             } catch (e) {
+                 alert("同步失败 (网络仍不可用?): " + e.message);
+             } finally {
+                 setIsProcessingData(false);
+             }
           };
 
           const handleRunAdvisor = async () => {
              setIsAnalyzing(true); setShowAIModal(true); setAnalysisResult('');
-             try { const result = await callGeminiStrategyAnalysis(tasks, projects); setAnalysisResult(result); } catch (err) { alert(err.message); setShowAIModal(false); } finally { setIsAnalyzing(false); }
+             try { const result = await callGeminiStrategyAnalysis(tasks, projects); setAnalysisResult(result); } catch (err) { setAnalysisResult("分析失败: " + err.message); } finally { setIsAnalyzing(false); }
           };
 
           const handleSmartBreakdown = async (task) => {
@@ -577,9 +630,23 @@
              try {
                 const steps = await callGeminiTaskBreakdown(task.content);
                 if (steps && steps.length > 0) { 
-                  const newTasks = steps.map(stepText => ({ id: crypto.randomUUID(), content: stepText, project_id: task.project_id || '', assigner: task.assigner || '', plan_date: task.plan_date || '', is_important: false, status: 'active', app_id: PUBLIC_APP_ID, created_at: new Date().toISOString() }));
-                  if (isOffline) setTasks(prev => [...newTasks, ...prev]);
-                  else await supabase.from('tasks').insert(newTasks);
+                  const newTasks = steps.map(stepText => ({
+                    id: crypto.randomUUID(),
+                    content: stepText, 
+                    project_id: task.project_id || '', 
+                    assigner: task.assigner || '', 
+                    plan_date: task.plan_date || '', 
+                    is_important: false, 
+                    status: 'active', 
+                    app_id: PUBLIC_APP_ID,
+                    created_at: new Date().toISOString()
+                  }));
+                  
+                  if (isOffline) {
+                      setTasks(prev => [...newTasks, ...prev]);
+                  } else {
+                      await supabase.from('tasks').insert(newTasks);
+                  }
                 }
              } catch (err) { alert(`拆解失败: ${err.message}`); } finally { setBreakdownLoadingId(null); }
           };
@@ -593,50 +660,90 @@
           const handleConfirmAuditTasks = async (newTasks) => {
             if (!editingProjectId || !newTasks || newTasks.length === 0) return;
             try { 
-              const tasksToInsert = newTasks.map(taskContent => ({ id: crypto.randomUUID(), content: taskContent, project_id: editingProjectId, assigner: '', plan_date: new Date().toISOString(), is_important: false, status: 'active', app_id: PUBLIC_APP_ID, created_at: new Date().toISOString() }));
-              if(isOffline) setTasks(prev => [...tasksToInsert, ...prev]);
-              else await supabase.from('tasks').insert(tasksToInsert);
+              const tasksToInsert = newTasks.map(taskContent => ({ 
+                id: crypto.randomUUID(),
+                content: taskContent, 
+                project_id: editingProjectId, 
+                assigner: '', 
+                plan_date: new Date().toISOString(), 
+                is_important: false, 
+                status: 'active', 
+                app_id: PUBLIC_APP_ID,
+                created_at: new Date().toISOString()
+              }));
+              
+              if(isOffline) {
+                  setTasks(prev => [...tasksToInsert, ...prev]);
+              } else {
+                  await supabase.from('tasks').insert(tasksToInsert);
+              }
               setShowAuditModal(false); 
             } catch (err) { alert("添加任务失败: " + err.message); }
           };
 
           const handleExportData = () => { const data = { projects, tasks, exportDate: new Date().toISOString(), version: '1.0' }; const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `cyber_ox_backup_${new Date().toISOString().split('T')[0]}.json`; a.click(); URL.revokeObjectURL(url); };
+          
           const handleImportData = async (file) => { 
-            if (!file) return; const reader = new FileReader(); 
+            if (!file) return; 
+            const reader = new FileReader(); 
             reader.onload = async (e) => { 
               try { 
-                setIsProcessingData(true); const data = JSON.parse(e.target.result); if (!data.projects || !data.tasks) { alert('文件格式错误'); setIsProcessingData(false); return; } 
+                setIsProcessingData(true); 
+                const data = JSON.parse(e.target.result); 
+                if (!data.projects || !data.tasks) { alert('文件格式错误'); setIsProcessingData(false); return; } 
+                
                 const projectIdMap = {};
                 const newProjects = data.projects.map(p => { const newId = crypto.randomUUID(); projectIdMap[p.id] = newId; return { id: newId, name: p.name, note: p.note || '', status: p.status || 'active', wait_status: p.waitStatus || 'normal', created_at: p.createdAt || new Date().toISOString(), app_id: PUBLIC_APP_ID }; });
                 const newTasks = data.tasks.map(t => { return { id: crypto.randomUUID(), content: t.content, status: t.status || 'active', is_important: t.isImportant || false, plan_date: t.plan_date || null, completed_at: t.completedAt || null, project_id: projectIdMap[t.projectId] || null, assigner: t.assigner || '', created_at: t.createdAt || new Date().toISOString(), app_id: PUBLIC_APP_ID }; });
-                if (isOffline) { setProjects(prev => [...newProjects, ...prev]); setTasks(prev => [...newTasks, ...prev]); alert(`导入成功！`); }
-                else { if (newProjects.length) await supabase.from('projects').insert(newProjects); if (newTasks.length) await supabase.from('tasks').insert(newTasks); alert(`导入成功！`); window.location.reload(); }
+                
+                if (isOffline) {
+                    setProjects(prev => [...newProjects, ...prev]);
+                    setTasks(prev => [...newTasks, ...prev]);
+                    alert(`离线导入成功！`); 
+                } else {
+                    if (newProjects.length) await supabase.from('projects').insert(newProjects);
+                    if (newTasks.length) await supabase.from('tasks').insert(newTasks);
+                    alert(`云端导入成功！`); 
+                    window.location.reload(); 
+                }
                 setShowSettings(false); 
               } catch (err) { alert('导入失败: ' + err.message); } finally { setIsProcessingData(false); } 
-            }; reader.readAsText(file); 
+            }; 
+            reader.readAsText(file); 
           };
 
           return (
             <div className="min-h-screen pb-20">
-              <header className="bg-white/80 backdrop-blur-md sticky top-0 z-30 border-b border-slate-100 shadow-sm px-2 md:px-8 py-2 md:h-16 flex flex-col md:flex-row items-center justify-between gap-3">
-                 <div className="flex items-center justify-between w-full md:w-auto gap-4">
+              <header className="bg-white/80 backdrop-blur-md sticky top-0 z-30 border-b border-slate-100 shadow-sm px-2 md:px-8 py-2 md:h-16 flex flex-col md:flex-row items-center justify-between gap-2">
+                 {/* Top Row: Logo + Title + Mobile Actions */}
+                 <div className="flex items-center justify-between w-full md:w-auto">
                     <div className="flex items-center gap-3">
                         <div className="bg-indigo-600 text-white w-8 h-8 flex items-center justify-center rounded-lg font-bold text-lg shadow-md shadow-indigo-200">牛</div>
                         <h1 className="font-bold text-lg tracking-tight text-slate-800">赛博牛马</h1>
                     </div>
+                    {/* Mobile Right Actions */}
                     <div className="flex md:hidden items-center gap-2">
+                        <div className={`flex items-center gap-1 text-[10px] px-2 py-1 rounded-full border ${isOffline ? 'bg-amber-50 border-amber-200 text-amber-600' : 'bg-green-50 border-green-200 text-green-600'}`}>
+                            {isOffline ? <CloudOff size={12}/> : <Wifi size={12}/>}
+                        </div>
                         <button onClick={handleRunAdvisor} className="p-2 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white rounded-lg shadow-md"><Sparkles size={18}/></button>
                         <button onClick={() => setShowSettings(true)} className="p-2 text-slate-400 bg-slate-100 rounded-lg relative"><Settings size={18} />{isOffline && <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-amber-500 rounded-full"></span>}</button>
                     </div>
                  </div>
 
+                 {/* Scrolling Nav (Visible on all, styled for both) */}
                  <nav className="flex items-center gap-1 bg-slate-100/50 p-1 rounded-lg overflow-x-auto max-w-full no-scrollbar w-full md:w-auto">
                     {[{ id: 'main', label: '主页面' }, { id: 'history', label: '已执行' }, { id: 'completedProjects', label: '已完成' }, { id: 'weekly', label: '周报' }].map(tab => (
                       <button key={tab.id} onClick={() => { setCurrentTab(tab.id); setEditingProjectId(null); }} className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all whitespace-nowrap ${currentTab === tab.id && !editingProjectId ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}>{tab.label}</button>
                     ))}
                  </nav>
 
+                 {/* Desktop Actions */}
                  <div className="hidden md:flex items-center gap-3">
+                    <div className={`flex items-center gap-1 text-[10px] px-2 py-1 rounded-full border ${isOffline ? 'bg-amber-50 border-amber-200 text-amber-600' : 'bg-green-50 border-green-200 text-green-600'}`}>
+                        {isOffline ? <WifiOff size={12}/> : <Wifi size={12}/>}
+                        <span>{isOffline ? '离线' : '云端'}</span>
+                    </div>
                     <button onClick={handleCreateProject} className="bg-indigo-50 text-indigo-600 hover:bg-indigo-100 px-4 py-2 rounded-lg text-sm font-bold transition-all">创建项目</button>
                     <button onClick={() => setShowQuickCreate(true)} className="bg-indigo-600 text-white hover:bg-indigo-700 px-4 py-2 rounded-lg text-sm font-bold shadow-lg shadow-indigo-200 transition-all">快捷创建</button>
                     <button onClick={handleRunAdvisor} className="bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white hover:opacity-90 px-3 py-2 rounded-lg text-sm font-bold shadow-lg shadow-purple-200 flex items-center gap-1 group transition-all"><Sparkles size={16}/><span className="hidden sm:inline">军师分析</span></button>
@@ -646,27 +753,41 @@
                     </button>
                  </div>
 
+                 {/* Mobile Floating Action Buttons (Bottom Right) */}
                  <div className="md:hidden fixed bottom-6 right-6 z-50 flex flex-col gap-3">
                     <button onClick={handleCreateProject} className="w-12 h-12 bg-white text-indigo-600 rounded-full shadow-xl border border-indigo-100 flex items-center justify-center active:scale-95 transition-transform"><Plus size={24}/></button>
                     <button onClick={() => setShowQuickCreate(true)} className="w-14 h-14 bg-indigo-600 text-white rounded-full shadow-2xl flex items-center justify-center active:scale-95 transition-transform"><Zap size={28}/></button>
                  </div>
               </header>
 
-              <main className="max-w-7xl mx-auto px-2 md:px-8 py-4 md:py-8">
+              <main className="max-w-7xl mx-auto px-4 md:px-8 py-8">
                  {editingProjectId ? (
                    <div className="animate-in slide-in-from-right" key={editingProjectId}>
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-2"><button onClick={()=>setEditingProjectId(null)} className="p-2 hover:bg-white rounded-full transition-colors"><ChevronLeft/></button><h2 className="text-xl font-bold">项目详情</h2></div>
-                        <button onClick={handleProjectAudit} className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg text-xs font-bold transition-colors"><Search size={16} /> 查漏</button>
+                      <div className="flex items-center justify-between mb-6">
+                        <div className="flex items-center gap-4"><button onClick={()=>setEditingProjectId(null)} className="p-2 hover:bg-white rounded-full transition-colors"><ChevronLeft/></button><h2 className="text-xl font-bold">项目详情</h2></div>
+                        <button onClick={handleProjectAudit} className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg text-sm font-bold transition-colors"><Search size={18} /> 查漏补缺</button>
                       </div>
-                      <div className="bg-white/80 backdrop-blur-md p-4 rounded-2xl border border-slate-100 shadow-sm mb-4">
-                         <input className="text-lg font-bold w-full outline-none mb-2 bg-transparent" defaultValue={projects.find(p=>p.id===editingProjectId)?.name || ''} onBlur={e=>handleUpdateProject(editingProjectId,{name:e.target.value})} placeholder="输入项目名称..." />
-                         <textarea className="w-full h-20 text-sm text-slate-600 bg-slate-50/50 rounded-lg p-2 outline-none resize-none" defaultValue={projects.find(p=>p.id===editingProjectId)?.note || ''} onBlur={e=>handleUpdateProject(editingProjectId,{note:e.target.value})} placeholder="添加项目备注..." />
+                      
+                      <div className="bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-slate-100 shadow-sm mb-6">
+                         <input 
+                            className="text-xl font-bold w-full outline-none mb-4 bg-transparent placeholder-slate-300" 
+                            defaultValue={projects.find(p=>p.id===editingProjectId)?.name || ''} 
+                            onBlur={e=>handleUpdateProject(editingProjectId,{name:e.target.value})}
+                            placeholder="输入项目名称..."
+                         />
+                         <textarea 
+                            className="w-full h-24 text-slate-600 bg-slate-50/50 rounded-lg p-3 outline-none resize-none focus:bg-white focus:ring-2 focus:ring-indigo-100 transition-all placeholder-slate-300" 
+                            defaultValue={projects.find(p=>p.id===editingProjectId)?.note || ''} 
+                            onBlur={e=>handleUpdateProject(editingProjectId,{note:e.target.value})} 
+                            placeholder="添加项目备注..."
+                         />
                       </div>
-                      <form onSubmit={(e)=>{e.preventDefault(); if(!projectTaskInput.trim()) return; handleCreateTask({content:projectTaskInput, project_id:editingProjectId, assigner:'', plan_date:new Date().toISOString(), is_important:false}); setProjectTaskInput('');}} className="flex gap-2 mb-4">
-                         <input className="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2 outline-none focus:border-indigo-500 shadow-sm text-sm" placeholder="添加新任务..." value={projectTaskInput} onChange={e=>setProjectTaskInput(e.target.value)} />
-                         <button type="submit" className="bg-indigo-600 text-white px-3 rounded-xl shadow-md"><Plus size={20}/></button>
+
+                      <form onSubmit={(e)=>{e.preventDefault(); if(!projectTaskInput.trim()) return; handleCreateTask({content:projectTaskInput, project_id:editingProjectId, assigner:'', plan_date:new Date().toISOString(), is_important:false}); setProjectTaskInput('');}} className="flex gap-2 mb-6">
+                         <input className="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-50/50 transition-all shadow-sm" placeholder="在此项目下添加新任务..." value={projectTaskInput} onChange={e=>setProjectTaskInput(e.target.value)} autoFocus />
+                         <button type="submit" className="bg-indigo-600 text-white px-4 rounded-xl hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all active:scale-95"><Plus size={24}/></button>
                       </form>
+
                       <div className="space-y-2">{tasks.filter(t=>t.project_id===editingProjectId).map(t=><TaskItem key={t.id} task={t} project={projects.find(p=>p.id===editingProjectId)} assigners={assigners} onUpdate={handleUpdateTask} onDeleteRequest={requestDeleteTask} onViewProject={()=>{}} onSmartBreakdown={handleSmartBreakdown} breakdownLoadingId={breakdownLoadingId}/>)}</div>
                    </div>
                  ) : (
