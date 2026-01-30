@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>赛博牛马任务管理系统 (Silicon Flow版)</title>
+    <title>赛博牛马的逆袭</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="赛博牛马">
+    <meta name="apple-mobile-web-app-title" content="赛博牛马的逆袭">
     
-    <!-- 设置蓝色“牛”字图标 -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjNGY0NmU1Ii8+PHRleHQgeD0iNTAiIHk9IjU0IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSI1NSIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiBkb21pbmFudC1iYXNlbGluZT0iY2VudHJhbCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+54mbPC90ZXh0Pjwvc3ZnPg==">
-    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjNGY0NmU1Ii8+PHRleHQgeD0iNTAiIHk9IjU0IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSI1NSIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiBkb21pbmFudC1iYXNlbGluZT0iY2VudHJhbCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+54mbPC90ZXh0Pjwvc3ZnPg==">
+    <!-- 1. 设置蓝紫色渐变“牛”字图标 (Base64 SVG) -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImdyYWQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM2MzY2ZjE7c3RvcC1vcGFjaXR5OjEiIC8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojYTg1NWY3O3N0b3Atb3BhY2l0eToxIiAvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTE1IiBmaWxsPSJ1cmwoI2dyYWQpIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjI1NiIgZmlsbD0id2hpdGUiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPueJmjwvdGV4dD48L3N2Zz4=">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImdyYWQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM2MzY2ZjE7c3RvcC1vcGFjaXR5OjEiIC8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojYTg1NWY3O3N0b3Atb3BhY2l0eToxIiAvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTE1IiBmaWxsPSJ1cmwoI2dyYWQpIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjI1NiIgZmlsbD0id2hpdGUiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPueJmjwvdGV4dD48L3N2Zz4=">
 
-    <!-- 1. 引入 Tailwind CSS -->
+    <!-- 2. 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- 2. 引入 Babel -->
+    <!-- 3. 引入 Babel -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <!-- 3. 依赖包地图 -->
+    <!-- 4. 依赖包地图 -->
     <script type="importmap">
     {
       "imports": {
@@ -38,7 +38,6 @@
         body { -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
         .fade-in { animation: fadeIn 0.2s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
-        /* 隐藏移动端滚动条但保留滚动功能 */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -71,7 +70,7 @@
         const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
         // -----------------------------------------------------------------------------
-        // Silicon Flow AI 逻辑
+        // AI 逻辑 (Silicon Flow)
         // -----------------------------------------------------------------------------
         const getApiKey = () => localStorage.getItem('silicon_api_key') || "";
         const getBaseUrl = () => {
@@ -168,12 +167,10 @@
             d1.getDate() === d2.getDate();
         };
 
-        // 补充缺失的 ListCheck 组件
         const ListCheck = ({size, className}) => (
           <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M15 2H9a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1Z"/><path d="m9 14 2 2 4-4"/></svg>
         );
 
-        // 补充缺失的 ConfirmDialog 组件
         const ConfirmDialog = ({ isOpen, onClose, onConfirm, title, message }) => {
           if (!isOpen) return null;
           return (
@@ -193,7 +190,6 @@
           );
         };
 
-        // 补充缺失的 AnalysisModal 组件
         const AnalysisModal = ({ isOpen, onClose, result, isAnalyzing }) => {
           if (!isOpen) return null;
           return (
@@ -223,7 +219,6 @@
           );
         };
 
-        // 补充缺失的 ProjectAuditModal 组件
         const ProjectAuditModal = ({ isOpen, onClose, data, isAnalyzing, onAddTasks }) => {
           const [selectedTasks, setSelectedTasks] = useState([]);
           useEffect(() => { if (data?.missingSteps) setSelectedTasks(data.missingSteps); }, [data]);
@@ -250,7 +245,6 @@
           );
         };
 
-        // 补充缺失的 SettingsModal 组件
         const SettingsModal = ({ isOpen, onClose, onExport, onImport, isProcessing, isOffline, onSyncToCloud }) => {
           const fileInputRef = useRef(null);
           const [userKey, setUserKey] = useState(localStorage.getItem('silicon_api_key') || '');
@@ -323,7 +317,6 @@
           );
         };
 
-        // 居中的日期选择器 - 使用 Portal
         const CustomDatePicker = ({ isOpen, onClose, onSelect, initialDate }) => {
           const [currentMonth, setCurrentMonth] = useState(new Date());
           const [selectedDay, setSelectedDay] = useState(new Date().getDate());
@@ -396,20 +389,22 @@
            const isBreakingDown = breakdownLoadingId === task.id;
            let bgClass = "bg-white border-slate-200";
            if(task.status==='completed') bgClass="opacity-60 bg-slate-50"; else if(task.is_important) bgClass="bg-yellow-50 border-yellow-200"; else if(isOverdue) bgClass="bg-green-50 border-green-200";
+           
            return (
              <div className={`flex items-center gap-2 p-3 rounded-lg border hover:shadow-sm transition-all ${bgClass} group fade-in`}>
-                <button onClick={()=>onUpdate(task.id, {status:task.status==='completed'?'active':'completed', completed_at: new Date().toISOString()})} className={task.status==='completed'?'text-slate-400':'text-slate-300 hover:text-indigo-500'}>{task.status==='completed'?<CheckCircle size={18}/>:<Circle size={18}/>}</button>
+                <div className="relative flex items-center justify-center">
+                    <button 
+                        onClick={()=>onUpdate(task.id, {status:task.status==='completed'?'active':'completed', completed_at: new Date().toISOString()})} 
+                        className={`w-11 h-11 flex items-center justify-center -ml-2 rounded-full active:bg-slate-100 transition-colors ${task.status==='completed'?'text-slate-400':'text-slate-300 hover:text-indigo-500'}`}
+                    >
+                        {task.status==='completed'?<CheckCircle size={20}/>:<Circle size={20}/>}
+                    </button>
+                </div>
                 <div className="flex-1 min-w-0">
                     <textarea rows={1} className={`bg-transparent w-full outline-none resize-none overflow-hidden line-clamp-2 whitespace-normal ${task.status==='completed'?'line-through text-slate-400':'text-slate-700'}`} defaultValue={task.content} onBlur={(e)=>onUpdate(task.id,{content:e.target.value})} onInput={(e) => {e.target.style.height = 'auto';e.target.style.height = (e.target.scrollHeight) + 'px';}}/>
                     {project && <div onClick={onViewProject} className="text-[10px] text-slate-400 hover:text-indigo-500 cursor-pointer">#{project.name}</div>}
                 </div>
-                <div onClick={() => setShowDatePicker(true)} className="flex-shrink-0 w-24 text-right text-xs text-slate-500 cursor-pointer hover:text-indigo-600 flex items-center justify-end gap-1"><Clock size={12} className={isOverdue ? "text-green-500" : ""} />{task.plan_date ? formatDate(task.plan_date).split(' ')[0] + ' ' + formatDate(task.plan_date).split(' ')[1] : '计划时间'}</div>
-                {task.status !== 'completed' && (<button onClick={() => onSmartBreakdown(task)} disabled={isBreakingDown} className={`text-slate-300 hover:text-violet-500 p-1 rounded hover:bg-violet-50 transition-all ${isBreakingDown ? 'animate-pulse text-violet-500' : 'opacity-0 group-hover:opacity-100'}`} title="AI 智能拆解">{isBreakingDown ? <Loader2 size={16} className="animate-spin"/> : <Zap size={16}/>}</button>)}
-                <button onClick={()=>onUpdate(task.id,{is_important:!task.is_important})} className="text-slate-300 hover:scale-110">{<Star size={16} className={task.is_important?"fill-yellow-400 text-yellow-400":""}/>}</button>
-                <button onClick={(e) => { e.stopPropagation(); onDeleteRequest(task.id); }} className="text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100 hover:scale-110 transition-transform"><Trash2 size={16}/></button>
-                <CustomDatePicker isOpen={showDatePicker} onClose={() => setShowDatePicker(false)} onSelect={(date) => onUpdate(task.id, { plan_date: date })} initialDate={task.plan_date} />
-             </div>
-           );
+                <div className="w-24 flex-shrink-0 relative hidden sm:block"><input type="text" list={`assigners-${task.id}`} defaultValue={task.assigner} placeholder="对接人" onBlur={(e) => { if (e.target.value !== task.assigner) onUpdate(task.id, { assigner: e.target.value }); }} className="bg-transparent w-full text-xs text-slate-500 text-right outline-none focus:text-indigo-600 placeholder:text-slate-300"/><datalist id={`assigners-${task.id}`}>{assigners.map((a, i) => <option key={i} value={a} />)}</datalist></div><div onClick={() => setShowDatePicker(true)} className="flex-shrink-0 w-24 text-right text-xs text-slate-500 cursor-pointer hover:text-indigo-600 flex items-center justify-end gap-1"><Clock size={12} className={isOverdue ? "text-green-500" : ""} />{task.plan_date ? formatDate(task.plan_date).split(' ')[0] + ' ' + formatDate(task.plan_date).split(' ')[1] : '计划时间'}</div>{task.status !== 'completed' && (<button onClick={() => onSmartBreakdown(task)} disabled={isBreakingDown} className={`text-slate-300 hover:text-violet-500 p-1 rounded hover:bg-violet-50 transition-all ${isBreakingDown ? 'animate-pulse text-violet-500' : 'opacity-0 group-hover:opacity-100'}`} title="AI 智能拆解">{isBreakingDown ? <Loader2 size={16} className="animate-spin"/> : <Zap size={16}/>}</button>)}<button onClick={()=>onUpdate(task.id,{is_important:!task.is_important})} className="text-slate-300 hover:scale-110">{<Star size={16} className={task.is_important?"fill-yellow-400 text-yellow-400":""}/>}</button><button onClick={(e) => { e.stopPropagation(); onDeleteRequest(task.id); }} className="text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100 hover:scale-110 transition-transform"><Trash2 size={16}/></button><CustomDatePicker isOpen={showDatePicker} onClose={() => setShowDatePicker(false)} onSelect={(date) => onUpdate(task.id, { plan_date: date })} initialDate={task.plan_date} /></div>);
         };
 
         const ProjectCard = ({ project, onClick, onDeleteRequest, onUpdate, onComplete }) => (
@@ -714,46 +709,35 @@
 
           return (
             <div className="min-h-screen pb-20">
-              <header className="bg-white/80 backdrop-blur-md sticky top-0 z-30 border-b border-slate-100 shadow-sm px-2 md:px-8 py-2 md:h-16 flex flex-col md:flex-row items-center justify-between gap-2">
-                 {/* Top Row: Logo + Title + Mobile Actions */}
+              <header className="bg-white/80 backdrop-blur-md sticky top-0 z-30 border-b border-slate-100 shadow-sm px-4 md:px-8 py-2 md:h-16 flex flex-col md:flex-row items-center justify-between gap-2">
                  <div className="flex items-center justify-between w-full md:w-auto">
                     <div className="flex items-center gap-3">
                         <div className="bg-indigo-600 text-white w-8 h-8 flex items-center justify-center rounded-lg font-bold text-lg shadow-md shadow-indigo-200">牛</div>
                         <h1 className="font-bold text-lg tracking-tight text-slate-800">赛博牛马</h1>
                     </div>
-                    {/* Mobile Right Actions */}
+                    {/* Mobile Right Actions - Simplified */}
                     <div className="flex md:hidden items-center gap-2">
-                        <div className={`flex items-center gap-1 text-[10px] px-2 py-1 rounded-full border ${isOffline ? 'bg-amber-50 border-amber-200 text-amber-600' : 'bg-green-50 border-green-200 text-green-600'}`}>
-                            {isOffline ? <CloudOff size={12}/> : <Wifi size={12}/>}
-                        </div>
                         <button onClick={handleRunAdvisor} className="p-2 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white rounded-lg shadow-md"><Sparkles size={18}/></button>
                         <button onClick={() => setShowSettings(true)} className="p-2 text-slate-400 bg-slate-100 rounded-lg relative"><Settings size={18} />{isOffline && <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-amber-500 rounded-full"></span>}</button>
                     </div>
                  </div>
 
-                 {/* Scrolling Nav (Visible on all, styled for both) */}
                  <nav className="flex items-center gap-1 bg-slate-100/50 p-1 rounded-lg overflow-x-auto max-w-full no-scrollbar w-full md:w-auto">
-                    {[{ id: 'main', label: '主页面' }, { id: 'history', label: '已执行' }, { id: 'completedProjects', label: '已完成' }, { id: 'weekly', label: '周报' }].map(tab => (
+                    {[{ id: 'main', label: '主页' }, { id: 'history', label: '已行' }, { id: 'completedProjects', label: '已成' }, { id: 'weekly', label: '周报' }].map(tab => (
                       <button key={tab.id} onClick={() => { setCurrentTab(tab.id); setEditingProjectId(null); }} className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all whitespace-nowrap ${currentTab === tab.id && !editingProjectId ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}>{tab.label}</button>
                     ))}
                  </nav>
 
-                 {/* Desktop Actions */}
                  <div className="hidden md:flex items-center gap-3">
-                    <div className={`flex items-center gap-1 text-[10px] px-2 py-1 rounded-full border ${isOffline ? 'bg-amber-50 border-amber-200 text-amber-600' : 'bg-green-50 border-green-200 text-green-600'}`}>
-                        {isOffline ? <WifiOff size={12}/> : <Wifi size={12}/>}
-                        <span>{isOffline ? '离线' : '云端'}</span>
-                    </div>
-                    <button onClick={handleCreateProject} className="bg-indigo-50 text-indigo-600 hover:bg-indigo-100 px-4 py-2 rounded-lg text-sm font-bold transition-all">创建项目</button>
-                    <button onClick={() => setShowQuickCreate(true)} className="bg-indigo-600 text-white hover:bg-indigo-700 px-4 py-2 rounded-lg text-sm font-bold shadow-lg shadow-indigo-200 transition-all">快捷创建</button>
-                    <button onClick={handleRunAdvisor} className="bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white hover:opacity-90 px-3 py-2 rounded-lg text-sm font-bold shadow-lg shadow-purple-200 flex items-center gap-1 group transition-all"><Sparkles size={16}/><span className="hidden sm:inline">军师分析</span></button>
+                    <button onClick={handleCreateProject} className="bg-indigo-50 text-indigo-600 hover:bg-indigo-100 px-4 py-2 rounded-lg text-sm font-bold transition-all">项目</button>
+                    <button onClick={() => setShowQuickCreate(true)} className="bg-indigo-600 text-white hover:bg-indigo-700 px-4 py-2 rounded-lg text-sm font-bold shadow-lg shadow-indigo-200 transition-all">节点</button>
+                    <button onClick={handleRunAdvisor} className="bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white hover:opacity-90 px-3 py-2 rounded-lg text-sm font-bold shadow-lg shadow-purple-200 flex items-center gap-1 group transition-all"><Sparkles size={16}/><span className="hidden sm:inline">AI</span></button>
                     <button onClick={() => setShowSettings(true)} className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors relative">
                         <Settings size={20} />
                         {isOffline && <span className="absolute top-1 right-1 w-2 h-2 bg-amber-500 rounded-full"></span>}
                     </button>
                  </div>
 
-                 {/* Mobile Floating Action Buttons (Bottom Right) */}
                  <div className="md:hidden fixed bottom-6 right-6 z-50 flex flex-col gap-3">
                     <button onClick={handleCreateProject} className="w-12 h-12 bg-white text-indigo-600 rounded-full shadow-xl border border-indigo-100 flex items-center justify-center active:scale-95 transition-transform"><Plus size={24}/></button>
                     <button onClick={() => setShowQuickCreate(true)} className="w-14 h-14 bg-indigo-600 text-white rounded-full shadow-2xl flex items-center justify-center active:scale-95 transition-transform"><Zap size={28}/></button>
